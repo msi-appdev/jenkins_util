@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+use strict;
+
+my $command = $ARGV[0];
+
+`$command`;
+
+if ($?) {
+  print '<?xml version="1.0" encoding="UTF-8"?>
+         <testsuite name="test" tests="1" errors="1" failures="0" skip="0">
+         <testcase classname="test" name="test" time="0.1">
+           <error type="error" message="non-zero exit status">
+           '.$?.'
+            </error>
+         </testcase>
+         </testsuite>
+         ';
+}else{
+  print '<?xml version="1.0" encoding="UTF-8"?>
+         <testsuite name="test" tests="1" errors="0" failures="0" skip="0">
+         <testcase classname="test" name="test" time="0.1">
+         </testcase>
+         </testsuite>
+         ';
+};
+
+
